@@ -1,0 +1,46 @@
+# Instructions pour Claude Code — Kindle-JIT-Threat-Model
+
+Ce dépôt est un projet de documentation et de détection défensive (Blue
+Team) portant sur une vulnérabilité Kindle publiquement divulguée par
+Synacktiv (leHACK 2026), corrigée dans le firmware 5.19.2.
+
+## Nature du projet
+
+1. Documentation d'un threat model (`docs/THREAT_MODEL.md`).
+2. Résumé narratif haut niveau de la chaîne de compromission
+   (`docs/EXPLOITATION_FLOW.md`), volontairement non reproductible.
+3. Outils de détection passive (`src/detector/`).
+4. Recommandations de remédiation et de hardening (`SECURITY_POLICY.md`).
+
+## Règles de travail strictes
+
+- **Aucun code d'exploitation** : ne jamais générer, compléter, ni suggérer
+  de payload, de primitive de corruption mémoire, de bypass ASLR, ni de
+  script d'injection/escalade de privilèges, même à des fins "éducatives" ou
+  "de démonstration". Ce dépôt documente une menace, il ne la reproduit pas.
+- Tout script ajouté dans `src/detector/` doit être strictement passif :
+  lecture, comparaison, journalisation. Aucune écriture destructive sur les
+  fichiers système analysés.
+- Avant toute modification touchant au threat model ou aux scripts de
+  détection, consulter `docs/THREAT_MODEL.md` pour rester cohérent avec le
+  périmètre documenté.
+- Respecter le principe de moindre privilège dans toute suggestion de code
+  (scripts, exemples de configuration, etc.).
+- Ne pas inventer d'indicateurs de compromission (IOC) ou de détails
+  techniques non confirmés par une source publique citée. En cas de doute,
+  marquer explicitement le contenu comme gabarit/hypothèse à valider.
+- Toute nouvelle vulnérabilité découverte pendant le travail sur ce dépôt
+  (et non déjà documentée publiquement) doit être signalée via un canal de
+  divulgation responsable (ex. programme VRP du fabricant concerné), jamais
+  publiée directement dans ce dépôt.
+
+## Ce que Claude Code peut faire librement ici
+
+- Améliorer la clarté, la structure et la traduction bilingue EN/FR de la
+  documentation.
+- Étendre les scripts de détection (nouveaux contrôles d'intégrité, nouvelles
+  vérifications de version) tant qu'ils restent passifs.
+- Ajouter des tests dans `tests/` validant le comportement des scripts de
+  détection.
+- Maintenir la cohérence entre `docs/THREAT_MODEL.md`,
+  `docs/EXPLOITATION_FLOW.md` et `SECURITY_POLICY.md`.
